@@ -47,7 +47,7 @@ export function Nav(): React.ReactElement {
               color: '#0A0A0A',
             }}
           >
-           <img src='/public/logo.png' width={140}/>
+           <img src='/logo.png' width={140}/>
           </span>
           {/* <span style={{ fontSize: 10, color: '#888', fontWeight: 400, letterSpacing: '0.06em' }}>
             by BHSS
