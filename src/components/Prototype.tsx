@@ -249,7 +249,7 @@ export const Prototype = forwardRef<PrototypeHandle>(function Prototype(_, ref) 
 
   // Scroll to latest message
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    // messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, loading]);
 
   const handleSend = useCallback(

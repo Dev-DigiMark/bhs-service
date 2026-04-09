@@ -24,7 +24,7 @@ export function CoreMessage(): React.ReactElement {
             position: 'relative',
           }}
         >
-          <span
+          {/* <span
             aria-hidden="true"
             style={{
               position: 'absolute',
@@ -40,7 +40,7 @@ export function CoreMessage(): React.ReactElement {
           >
             "
           </span>
-          Nuh let people tek yuh fi eddiat!
+       
           <span
             aria-hidden="true"
             style={{
@@ -56,7 +56,8 @@ export function CoreMessage(): React.ReactElement {
             }}
           >
             "
-          </span>
+          </span> */}
+             Nuh let people tek yuh fi eddiat!
         </blockquote>
 
         <p className="reveal" style={{ fontSize: 14, color: '#888', marginBottom: 56 }}>
