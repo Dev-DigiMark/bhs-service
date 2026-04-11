@@ -8,203 +8,203 @@ import {
 } from 'react';
 import { sendMessage } from '../lib/chatbot';
 import { db, analytics } from '../lib/firebase';
-import type { ChatMessage, ActionDocument, FeedbackEntry } from '../types';
+import type { ChatMessage, FeedbackEntry } from '../types';
+// ActionDocument
+// const SUGGESTIONS = [
+//   'My GP keeps dismissing my symptoms without running any tests',
+//   'My manager is ignoring my discrimination complaint at work',
+//   `My landlord won't fix the heating and it's been weeks`,
+//   'My child was unfairly excluded from school',
+// ] as const;
 
-const SUGGESTIONS = [
-  'My GP keeps dismissing my symptoms without running any tests',
-  'My manager is ignoring my discrimination complaint at work',
-  `My landlord won't fix the heating and it's been weeks`,
-  'My child was unfairly excluded from school',
-] as const;
+// // ── Sub-components ────────────────────────────────────────────────────────────
 
-// ── Sub-components ────────────────────────────────────────────────────────────
+// function TypingIndicator(): React.ReactElement {
+//   return (
+//     <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+//       <Avatar />
+//       <div
+//         style={{
+//           background: '#F3F3F3',
+//           border: '1px solid #E5E5E5',
+//           padding: '12px 16px',
+//           borderRadius: '4px 12px 12px 12px',
+//           display: 'flex',
+//           gap: 5,
+//           alignItems: 'center',
+//         }}
+//       >
+//         {[0, 1, 2].map((i) => (
+//           <span
+//             key={i}
+//             style={{
+//               width: 6,
+//               height: 6,
+//               borderRadius: '50%',
+//               background: '#999',
+//               display: 'inline-block',
+//               animation: 'typing-pulse 1.2s ease-in-out infinite',
+//               animationDelay: `${i * 0.2}s`,
+//             }}
+//           />
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
 
-function TypingIndicator(): React.ReactElement {
-  return (
-    <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-      <Avatar />
-      <div
-        style={{
-          background: '#F3F3F3',
-          border: '1px solid #E5E5E5',
-          padding: '12px 16px',
-          borderRadius: '4px 12px 12px 12px',
-          display: 'flex',
-          gap: 5,
-          alignItems: 'center',
-        }}
-      >
-        {[0, 1, 2].map((i) => (
-          <span
-            key={i}
-            style={{
-              width: 6,
-              height: 6,
-              borderRadius: '50%',
-              background: '#999',
-              display: 'inline-block',
-              animation: 'typing-pulse 1.2s ease-in-out infinite',
-              animationDelay: `${i * 0.2}s`,
-            }}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
+// function Avatar(): React.ReactElement {
+//   return (
+//     <div
+//       aria-hidden="true"
+//       style={{
+//         width: 32,
+//         height: 32,
+//         background: '#0A0A0A',
+//         borderRadius: '50%',
+//         display: 'flex',
+//         alignItems: 'center',
+//         justifyContent: 'center',
+//         flexShrink: 0,
+//         color: '#fff',
+//         fontFamily: "'Fraunces', Georgia, serif",
+//         fontWeight: 700,
+//         fontSize: 13,
+//       }}
+//     >
+//       C
+//     </div>
+//   );
+// }
 
-function Avatar(): React.ReactElement {
-  return (
-    <div
-      aria-hidden="true"
-      style={{
-        width: 32,
-        height: 32,
-        background: '#0A0A0A',
-        borderRadius: '50%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexShrink: 0,
-        color: '#fff',
-        fontFamily: "'Fraunces', Georgia, serif",
-        fontWeight: 700,
-        fontSize: 13,
-      }}
-    >
-      C
-    </div>
-  );
-}
+// function formatContent(content: string): React.ReactNode {
+//   return content.split(/(\*\*[^*]+\*\*)/).map((part, i) =>
+//     part.startsWith('**') && part.endsWith('**') ? (
+//       <strong key={i}>{part.slice(2, -2)}</strong>
+//     ) : (
+//       part
+//     ),
+//   );
+// }
 
-function formatContent(content: string): React.ReactNode {
-  return content.split(/(\*\*[^*]+\*\*)/).map((part, i) =>
-    part.startsWith('**') && part.endsWith('**') ? (
-      <strong key={i}>{part.slice(2, -2)}</strong>
-    ) : (
-      part
-    ),
-  );
-}
+// interface DocumentViewerProps {
+//   doc: ActionDocument;
+// }
 
-interface DocumentViewerProps {
-  doc: ActionDocument;
-}
+// function DocumentViewer({ doc }: DocumentViewerProps): React.ReactElement {
+//   const [open, setOpen] = useState(false);
 
-function DocumentViewer({ doc }: DocumentViewerProps): React.ReactElement {
-  const [open, setOpen] = useState(false);
+//   return (
+//     <div>
+//       <button
+//         onClick={() => setOpen((v) => !v)}
+//         aria-expanded={open}
+//         style={{
+//           display: 'inline-flex',
+//           alignItems: 'center',
+//           gap: 6,
+//           background: 'transparent',
+//           border: '1.5px solid #0A0A0A',
+//           color: '#0A0A0A',
+//           borderRadius: 6,
+//           padding: '7px 14px',
+//           fontSize: 12,
+//           fontWeight: 600,
+//           letterSpacing: '0.02em',
+//           cursor: 'pointer',
+//           transition: 'all 0.15s ease',
+//           marginTop: 8,
+//         }}
+//         onMouseEnter={(e) => {
+//           e.currentTarget.style.background = '#0A0A0A';
+//           e.currentTarget.style.color = '#fff';
+//         }}
+//         onMouseLeave={(e) => {
+//           e.currentTarget.style.background = 'transparent';
+//           e.currentTarget.style.color = '#0A0A0A';
+//         }}
+//       >
+//         {open ? '↑ Hide' : '📄 View'} {doc.type}
+//       </button>
 
-  return (
-    <div>
-      <button
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 6,
-          background: 'transparent',
-          border: '1.5px solid #0A0A0A',
-          color: '#0A0A0A',
-          borderRadius: 6,
-          padding: '7px 14px',
-          fontSize: 12,
-          fontWeight: 600,
-          letterSpacing: '0.02em',
-          cursor: 'pointer',
-          transition: 'all 0.15s ease',
-          marginTop: 8,
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = '#0A0A0A';
-          e.currentTarget.style.color = '#fff';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = 'transparent';
-          e.currentTarget.style.color = '#0A0A0A';
-        }}
-      >
-        {open ? '↑ Hide' : '📄 View'} {doc.type}
-      </button>
+//       {open && (
+//         <div
+//           style={{
+//             marginTop: 10,
+//             background: '#F8F8F8',
+//             border: '1px solid #E5E5E5',
+//             borderRadius: 10,
+//             padding: '20px 22px',
+//             maxWidth: 520,
+//           }}
+//         >
+//           <p
+//             style={{
+//               fontSize: 11,
+//               fontWeight: 700,
+//               letterSpacing: '0.08em',
+//               textTransform: 'uppercase',
+//               color: '#888',
+//               marginBottom: 12,
+//             }}
+//           >
+//             {doc.title}
+//           </p>
+//           <pre
+//             style={{
+//               fontFamily: "'Inter', system-ui, sans-serif",
+//               fontSize: 12,
+//               lineHeight: 1.85,
+//               color: '#333',
+//               whiteSpace: 'pre-wrap',
+//               wordBreak: 'break-word',
+//               margin: 0,
+//             }}
+//           >
+//             {doc.body}
+//           </pre>
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
 
-      {open && (
-        <div
-          style={{
-            marginTop: 10,
-            background: '#F8F8F8',
-            border: '1px solid #E5E5E5',
-            borderRadius: 10,
-            padding: '20px 22px',
-            maxWidth: 520,
-          }}
-        >
-          <p
-            style={{
-              fontSize: 11,
-              fontWeight: 700,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              color: '#888',
-              marginBottom: 12,
-            }}
-          >
-            {doc.title}
-          </p>
-          <pre
-            style={{
-              fontFamily: "'Inter', system-ui, sans-serif",
-              fontSize: 12,
-              lineHeight: 1.85,
-              color: '#333',
-              whiteSpace: 'pre-wrap',
-              wordBreak: 'break-word',
-              margin: 0,
-            }}
-          >
-            {doc.body}
-          </pre>
-        </div>
-      )}
-    </div>
-  );
-}
+// interface MessageBubbleProps {
+//   message: ChatMessage;
+// }
 
-interface MessageBubbleProps {
-  message: ChatMessage;
-}
-
-function MessageBubble({ message }: MessageBubbleProps): React.ReactElement {
-  const isUser = message.role === 'user';
-  return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: isUser ? 'row-reverse' : 'row',
-        gap: 10,
-        alignItems: 'flex-start',
-      }}
-    >
-      {!isUser && <Avatar />}
-      <div style={{ maxWidth: '78%', display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <div
-          style={{
-            background: isUser ? '#0A0A0A' : '#F3F3F3',
-            border: isUser ? 'none' : '1px solid #E5E5E5',
-            color: isUser ? '#fff' : '#0A0A0A',
-            padding: '12px 16px',
-            borderRadius: isUser ? '12px 12px 4px 12px' : '4px 12px 12px 12px',
-            fontSize: 14,
-            lineHeight: 1.75,
-            whiteSpace: 'pre-line',
-          }}
-        >
-          {formatContent(message.content)}
-        </div>
-        {message.actionDocument && <DocumentViewer doc={message.actionDocument} />}
-      </div>
-    </div>
-  );
-}
+// function MessageBubble({ message }: MessageBubbleProps): React.ReactElement {
+//   const isUser = message.role === 'user';
+//   return (
+//     <div
+//       style={{
+//         display: 'flex',
+//         flexDirection: isUser ? 'row-reverse' : 'row',
+//         gap: 10,
+//         alignItems: 'flex-start',
+//       }}
+//     >
+//       {!isUser && <Avatar />}
+//       <div style={{ maxWidth: '78%', display: 'flex', flexDirection: 'column', gap: 8 }}>
+//         <div
+//           style={{
+//             background: isUser ? '#0A0A0A' : '#F3F3F3',
+//             border: isUser ? 'none' : '1px solid #E5E5E5',
+//             color: isUser ? '#fff' : '#0A0A0A',
+//             padding: '12px 16px',
+//             borderRadius: isUser ? '12px 12px 4px 12px' : '4px 12px 12px 12px',
+//             fontSize: 14,
+//             lineHeight: 1.75,
+//             whiteSpace: 'pre-line',
+//           }}
+//         >
+//           {formatContent(message.content)}
+//         </div>
+//         {message.actionDocument && <DocumentViewer doc={message.actionDocument} />}
+//       </div>
+//     </div>
+//   );
+// }
 
 // ── Prototype handle (for scrolling to it from parent) ────────────────────────
 
@@ -218,8 +218,8 @@ export interface PrototypeHandle {
 export const Prototype = forwardRef<PrototypeHandle>(function Prototype(_, ref) {
   const sessionId = useRef<string>(Math.random().toString(36).slice(2, 9));
   const sectionRef = useRef<HTMLElement>(null);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLTextAreaElement>(null);
+  // const messagesEndRef = useRef<HTMLDivElement>(null);
+  // const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
@@ -230,7 +230,7 @@ export const Prototype = forwardRef<PrototypeHandle>(function Prototype(_, ref) 
       timestamp: Date.now(),
     },
   ]);
-  const [input, setInput] = useState('');
+  // const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [feedbackText, setFeedbackText] = useState('');
   const [feedbackStatus, setFeedbackStatus] = useState<'idle' | 'loading' | 'done'>('idle');
@@ -265,7 +265,7 @@ export const Prototype = forwardRef<PrototypeHandle>(function Prototype(_, ref) 
       };
 
       setMessages((prev) => [...prev, userMessage]);
-      setInput('');
+      // setInput('');
       setLoading(true);
 
       analytics.logEvent('message_sent', { session: sessionId.current });
@@ -298,15 +298,15 @@ export const Prototype = forwardRef<PrototypeHandle>(function Prototype(_, ref) 
     [loading],
   );
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        handleSend(input);
-      }
-    },
-    [input, handleSend],
-  );
+  // const handleKeyDown = useCallback(
+  //   (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  //     if (e.key === 'Enter' && !e.shiftKey) {
+  //       e.preventDefault();
+  //       handleSend(input);
+  //     }
+  //   },
+  //   [input, handleSend],
+  // );
 
   const handleFeedback = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
@@ -327,7 +327,7 @@ export const Prototype = forwardRef<PrototypeHandle>(function Prototype(_, ref) 
     [feedbackText],
   );
 
-  const showSuggestions = messages.length <= 1;
+  // const showSuggestions = messages.length <= 1;
 
   return (
     <section
@@ -395,176 +395,7 @@ export const Prototype = forwardRef<PrototypeHandle>(function Prototype(_, ref) 
         </div>
 
         {/* Chat window */}
-        <div
-          className="reveal"
-          style={{
-            background: '#fff',
-            border: '1px solid #E5E5E5',
-            borderRadius: 16,
-            overflow: 'hidden',
-            boxShadow: '0 4px 40px rgba(0,0,0,0.06)',
-          }}
-        >
-          {/* Chat header bar */}
-          <div
-            style={{
-              padding: '16px 24px',
-              borderBottom: '1px solid #E5E5E5',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 12,
-              background: '#0A0A0A',
-            }}
-          >
-            <div
-              style={{
-                width: 36,
-                height: 36,
-                background: '#1E1E1E',
-                border: '1px solid #333',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#fff',
-                fontFamily: "'Fraunces', Georgia, serif",
-                fontWeight: 700,
-                fontSize: 15,
-              }}
-            >
-              C
-            </div>
-            <div>
-              <p style={{ fontWeight: 600, fontSize: 14, color: '#fff', lineHeight: 1 }}>
-                CLEAR
-              </p>
-              <p style={{ fontSize: 11, color: '#666', marginTop: 3 }}>
-                AI Advocacy Companion · UK-focused · Rights-based
-              </p>
-            </div>
-          </div>
-
-          {/* Messages */}
-          <div
-            role="log"
-            aria-label="Conversation"
-            aria-live="polite"
-            style={{
-              height: 440,
-              overflowY: 'auto',
-              padding: '24px',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 18,
-            }}
-          >
-            {messages.map((msg) => (
-              <MessageBubble key={msg.id} message={msg} />
-            ))}
-
-            {loading && <TypingIndicator />}
-
-            <div ref={messagesEndRef} />
-          </div>
-
-          {/* Suggestions */}
-          {showSuggestions && !loading && (
-            <div
-              style={{
-                padding: '0 24px 16px',
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: 8,
-              }}
-            >
-              {SUGGESTIONS.map((s) => (
-                <button
-                  key={s}
-                  onClick={() => handleSend(s)}
-                  style={{
-                    background: '#F3F3F3',
-                    border: '1px solid #E5E5E5',
-                    borderRadius: 100,
-                    padding: '7px 14px',
-                    fontSize: 12,
-                    color: '#555',
-                    fontWeight: 500,
-                    cursor: 'pointer',
-                    transition: 'all 0.15s ease',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#0A0A0A';
-                    e.currentTarget.style.color = '#fff';
-                    e.currentTarget.style.borderColor = '#0A0A0A';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = '#F3F3F3';
-                    e.currentTarget.style.color = '#555';
-                    e.currentTarget.style.borderColor = '#E5E5E5';
-                  }}
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
-          )}
-
-          {/* Input area */}
-          <div
-            style={{
-              borderTop: '1px solid #E5E5E5',
-              padding: '12px 16px',
-              display: 'flex',
-              gap: 10,
-              alignItems: 'flex-end',
-              background: '#FAFAFA',
-            }}
-          >
-            <textarea
-              ref={inputRef}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Describe your situation…"
-              aria-label="Message input"
-              rows={2}
-              style={{
-                flex: 1,
-                padding: '11px 14px',
-                border: '1.5px solid #E5E5E5',
-                borderRadius: 10,
-                background: '#fff',
-                resize: 'none',
-                fontSize: 14,
-                lineHeight: 1.55,
-                color: '#0A0A0A',
-                outline: 'none',
-                transition: 'border-color 0.15s ease',
-              }}
-              onFocus={(e) => (e.target.style.borderColor = '#0A0A0A')}
-              onBlur={(e) => (e.target.style.borderColor = '#E5E5E5')}
-            />
-            <button
-              onClick={() => handleSend(input)}
-              disabled={loading || !input.trim()}
-              aria-label="Send message"
-              style={{
-                background: input.trim() && !loading ? '#0A0A0A' : '#E5E5E5',
-                color: input.trim() && !loading ? '#fff' : '#AAA',
-                border: 'none',
-                borderRadius: 10,
-                padding: '11px 22px',
-                fontSize: 14,
-                fontWeight: 600,
-                height: 48,
-                cursor: input.trim() && !loading ? 'pointer' : 'not-allowed',
-                transition: 'all 0.15s ease',
-              }}
-            >
-              Send
-            </button>
-          </div>
-        </div>
+     
 
         {/* Feedback form */}
         <div
@@ -652,3 +483,197 @@ export const Prototype = forwardRef<PrototypeHandle>(function Prototype(_, ref) 
     </section>
   );
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//  {/* Chat window */}
+
+    // <div
+    //       className="reveal"
+    //       style={{
+    //         background: '#fff',
+    //         border: '1px solid #E5E5E5',
+    //         borderRadius: 16,
+    //         overflow: 'hidden',
+    //         boxShadow: '0 4px 40px rgba(0,0,0,0.06)',
+    //       }}
+    //     >
+    //       {/* Chat header bar */}
+    //       <div
+    //         style={{
+    //           padding: '16px 24px',
+    //           borderBottom: '1px solid #E5E5E5',
+    //           display: 'flex',
+    //           alignItems: 'center',
+    //           gap: 12,
+    //           background: '#0A0A0A',
+    //         }}
+    //       >
+    //         <div
+    //           style={{
+    //             width: 36,
+    //             height: 36,
+    //             background: '#1E1E1E',
+    //             border: '1px solid #333',
+    //             borderRadius: '50%',
+    //             display: 'flex',
+    //             alignItems: 'center',
+    //             justifyContent: 'center',
+    //             color: '#fff',
+    //             fontFamily: "'Fraunces', Georgia, serif",
+    //             fontWeight: 700,
+    //             fontSize: 15,
+    //           }}
+    //         >
+    //           C
+    //         </div>
+    //         <div>
+    //           <p style={{ fontWeight: 600, fontSize: 14, color: '#fff', lineHeight: 1 }}>
+    //             CLEAR
+    //           </p>
+    //           <p style={{ fontSize: 11, color: '#666', marginTop: 3 }}>
+    //             AI Advocacy Companion · UK-focused · Rights-based
+    //           </p>
+    //         </div>
+    //       </div>
+
+    //       {/* Messages */}
+    //       <div
+    //         role="log"
+    //         aria-label="Conversation"
+    //         aria-live="polite"
+    //         style={{
+    //           height: 440,
+    //           overflowY: 'auto',
+    //           padding: '24px',
+    //           display: 'flex',
+    //           flexDirection: 'column',
+    //           gap: 18,
+    //         }}
+    //       >
+    //         {messages.map((msg) => (
+    //           <MessageBubble key={msg.id} message={msg} />
+    //         ))}
+
+    //         {loading && <TypingIndicator />}
+
+    //         <div ref={messagesEndRef} />
+    //       </div>
+
+    //       {/* Suggestions */}
+    //       {showSuggestions && !loading && (
+    //         <div
+    //           style={{
+    //             padding: '0 24px 16px',
+    //             display: 'flex',
+    //             flexWrap: 'wrap',
+    //             gap: 8,
+    //           }}
+    //         >
+    //           {SUGGESTIONS.map((s) => (
+    //             <button
+    //               key={s}
+    //               onClick={() => handleSend(s)}
+    //               style={{
+    //                 background: '#F3F3F3',
+    //                 border: '1px solid #E5E5E5',
+    //                 borderRadius: 100,
+    //                 padding: '7px 14px',
+    //                 fontSize: 12,
+    //                 color: '#555',
+    //                 fontWeight: 500,
+    //                 cursor: 'pointer',
+    //                 transition: 'all 0.15s ease',
+    //               }}
+    //               onMouseEnter={(e) => {
+    //                 e.currentTarget.style.background = '#0A0A0A';
+    //                 e.currentTarget.style.color = '#fff';
+    //                 e.currentTarget.style.borderColor = '#0A0A0A';
+    //               }}
+    //               onMouseLeave={(e) => {
+    //                 e.currentTarget.style.background = '#F3F3F3';
+    //                 e.currentTarget.style.color = '#555';
+    //                 e.currentTarget.style.borderColor = '#E5E5E5';
+    //               }}
+    //             >
+    //               {s}
+    //             </button>
+    //           ))}
+    //         </div>
+    //       )}
+
+    //       {/* Input area */}
+    //       <div
+    //         style={{
+    //           borderTop: '1px solid #E5E5E5',
+    //           padding: '12px 16px',
+    //           display: 'flex',
+    //           gap: 10,
+    //           alignItems: 'flex-end',
+    //           background: '#FAFAFA',
+    //         }}
+    //       >
+    //         <textarea
+    //           ref={inputRef}
+    //           value={input}
+    //           onChange={(e) => setInput(e.target.value)}
+    //           onKeyDown={handleKeyDown}
+    //           placeholder="Describe your situation…"
+    //           aria-label="Message input"
+    //           rows={2}
+    //           style={{
+    //             flex: 1,
+    //             padding: '11px 14px',
+    //             border: '1.5px solid #E5E5E5',
+    //             borderRadius: 10,
+    //             background: '#fff',
+    //             resize: 'none',
+    //             fontSize: 14,
+    //             lineHeight: 1.55,
+    //             color: '#0A0A0A',
+    //             outline: 'none',
+    //             transition: 'border-color 0.15s ease',
+    //           }}
+    //           onFocus={(e) => (e.target.style.borderColor = '#0A0A0A')}
+    //           onBlur={(e) => (e.target.style.borderColor = '#E5E5E5')}
+    //         />
+    //         <button
+    //           onClick={() => handleSend(input)}
+    //           disabled={loading || !input.trim()}
+    //           aria-label="Send message"
+    //           style={{
+    //             background: input.trim() && !loading ? '#0A0A0A' : '#E5E5E5',
+    //             color: input.trim() && !loading ? '#fff' : '#AAA',
+    //             border: 'none',
+    //             borderRadius: 10,
+    //             padding: '11px 22px',
+    //             fontSize: 14,
+    //             fontWeight: 600,
+    //             height: 48,
+    //             cursor: input.trim() && !loading ? 'pointer' : 'not-allowed',
+    //             transition: 'all 0.15s ease',
+    //           }}
+    //         >
+    //           Send
+    //         </button>
+    //       </div>
+    //     </div>

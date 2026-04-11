@@ -19,76 +19,33 @@ export function Nav(): React.ReactElement {
       <nav
         role="navigation"
         aria-label="Main navigation"
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 100,
-          height: 64,
-          padding: '0 5%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          background: scrolled ? 'rgba(255,255,255,0.97)' : 'transparent',
-          backdropFilter: scrolled ? 'blur(16px)' : 'none',
-          borderBottom: scrolled ? '1px solid #E5E5E5' : '1px solid transparent',
-          transition: 'background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease',
-        }}
+        className={`fixed top-0 left-0 right-0 z-[100] h-16 px-[5%] flex items-center justify-between transition-all duration-300 ease-in-out ${
+          scrolled
+            ? 'bg-white/97 backdrop-blur-lg border-b border-[#E5E5E5]'
+            : 'bg-transparent border-b border-transparent'
+        }`}
       >
         {/* Logo */}
-        <a href="#" aria-label="CLEAR – go to top" style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
-          <span
-            style={{
-              fontFamily: "'Fraunces', Georgia, serif",
-              fontWeight: 700,
-              fontSize: 22,
-              letterSpacing: '-0.01em',
-              color: '#0A0A0A',
-            }}
-          >
-           <img src='/logo.png' width={140}/>
+        <a href="#" aria-label="CLEAR – go to top" className="flex flex-col leading-none">
+          <span className="font-['Fraunces',_Georgia,_serif] font-bold text-[22px] tracking-tight text-[#0A0A0A]">
+            <img src='/logo.png' width={140} alt="CLEAR Logo" />
           </span>
-          {/* <span style={{ fontSize: 10, color: '#888', fontWeight: 400, letterSpacing: '0.06em' }}>
-            by BHSS
-          </span> */}
         </a>
 
         {/* Desktop links */}
-        <div
-          className="desktop-nav"
-          style={{ display: 'flex', alignItems: 'center', gap: 32 }}
-        >
+        <div className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map(({ label, href }) => (
             <a
               key={href}
               href={href}
-              style={{
-                fontSize: 14,
-                fontWeight: 500,
-                color: '#555',
-                transition: 'color 0.15s ease',
-              }}
-              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = '#0A0A0A')}
-              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = '#555')}
+              className="text-sm font-medium text-[#555] transition-colors duration-150 ease-in-out hover:text-[#0A0A0A]"
             >
               {label}
             </a>
           ))}
           <a
             href="#prototype"
-            style={{
-              background: '#0A0A0A',
-              color: '#fff',
-              padding: '9px 22px',
-              borderRadius: 6,
-              fontSize: 13,
-              fontWeight: 600,
-              letterSpacing: '0.02em',
-              transition: 'background 0.15s ease',
-            }}
-            onMouseEnter={(e) => ((e.target as HTMLElement).style.background = '#333')}
-            onMouseLeave={(e) => ((e.target as HTMLElement).style.background = '#0A0A0A')}
+            className="bg-[#0A0A0A] text-white px-[22px] py-[9px] rounded-md text-[13px] font-semibold tracking-wide transition-colors duration-150 ease-in-out hover:bg-[#333]"
           >
             Try CLEAR
           </a>
@@ -96,19 +53,10 @@ export function Nav(): React.ReactElement {
 
         {/* Mobile hamburger */}
         <button
-          className="mobile-nav-toggle"
           onClick={toggleMenu}
           aria-expanded={menuOpen}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          style={{
-            display: 'none',
-            background: 'none',
-            border: 'none',
-            color: '#0A0A0A',
-            fontSize: 22,
-            lineHeight: 1,
-            padding: 4,
-          }}
+          className="md:hidden bg-transparent border-none text-[#0A0A0A] text-[22px] leading-none p-1 cursor-pointer"
         >
           {menuOpen ? '✕' : '☰'}
         </button>
@@ -120,30 +68,12 @@ export function Nav(): React.ReactElement {
           role="dialog"
           aria-modal="true"
           aria-label="Navigation menu"
-          style={{
-            position: 'fixed',
-            inset: 0,
-            background: '#fff',
-            zIndex: 200,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 36,
-          }}
+          className="fixed inset-0 bg-white z-[200] flex flex-col items-center justify-center gap-9"
         >
           <button
             onClick={closeMenu}
             aria-label="Close menu"
-            style={{
-              position: 'absolute',
-              top: 20,
-              right: 24,
-              background: 'none',
-              border: 'none',
-              color: '#888',
-              fontSize: 28,
-            }}
+            className="absolute top-5 right-6 bg-transparent border-none text-[#888] text-[28px] cursor-pointer"
           >
             ✕
           </button>
@@ -153,12 +83,7 @@ export function Nav(): React.ReactElement {
               key={href}
               href={href}
               onClick={closeMenu}
-              style={{
-                fontFamily: "'Fraunces', Georgia, serif",
-                fontSize: 30,
-                fontWeight: 600,
-                color: '#0A0A0A',
-              }}
+              className="font-['Fraunces',_Georgia,_serif] text-3xl font-semibold text-[#0A0A0A]"
             >
               {label}
             </a>
@@ -167,26 +92,12 @@ export function Nav(): React.ReactElement {
           <a
             href="#prototype"
             onClick={closeMenu}
-            style={{
-              background: '#0A0A0A',
-              color: '#fff',
-              padding: '14px 40px',
-              borderRadius: 8,
-              fontSize: 16,
-              fontWeight: 600,
-            }}
+            className="bg-[#0A0A0A] text-white px-10 py-3.5 rounded-lg text-base font-semibold"
           >
             Try CLEAR
           </a>
         </div>
       )}
-
-      <style>{`
-        @media (max-width: 768px) {
-          .desktop-nav { display: none !important; }
-          .mobile-nav-toggle { display: block !important; }
-        }
-      `}</style>
     </>
   );
 }
