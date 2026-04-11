@@ -60,7 +60,7 @@ export function UseCases({ onSuggestion }: UseCasesProps): React.ReactElement {
               fontWeight: 600,
               letterSpacing: '0.12em',
               textTransform: 'uppercase',
-              color: '#888',
+              color: '#000',
               marginBottom: 20,
             }}
           >
@@ -79,7 +79,7 @@ export function UseCases({ onSuggestion }: UseCasesProps): React.ReactElement {
           >
             Real situations. Real support.
           </h2>
-          <p className="reveal" style={{ color: '#666', maxWidth: 460, margin: '0 auto', fontSize: 16 }}>
+          <p className="reveal" style={{ color: '#000', maxWidth: 460, margin: '0 auto', fontSize: 16 }}>
             Anywhere you need to explain your situation and be taken seriously.
           </p>
         </div>
@@ -155,7 +155,7 @@ export function UseCases({ onSuggestion }: UseCasesProps): React.ReactElement {
                   fontWeight: 600,
                   letterSpacing: '0.1em',
                   textTransform: 'uppercase',
-                  color: '#888',
+                  color: '#000',
                   marginBottom: 20,
                 }}
               >
@@ -183,7 +183,7 @@ export function UseCases({ onSuggestion }: UseCasesProps): React.ReactElement {
                   fontWeight: 600,
                   letterSpacing: '0.1em',
                   textTransform: 'uppercase',
-                  color: '#888',
+                  color: '#000',
                   marginBottom: 20,
                 }}
               >
@@ -210,7 +210,7 @@ export function UseCases({ onSuggestion }: UseCasesProps): React.ReactElement {
                         <path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </span>
-                    <span style={{ fontSize: 15, color: '#333', lineHeight: 1.6 }}>{item}</span>
+                    <span style={{ fontSize: 15, color: '#000', lineHeight: 1.6 }}>{item}</span>
                   </li>
                 ))}
               </ul>

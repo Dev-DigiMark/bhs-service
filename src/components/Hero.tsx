@@ -125,7 +125,7 @@ export function Hero({ onTryPrototype }: HeroProps): React.ReactElement {
             fontSize: 'clamp(1.1rem, 2.5vw, 1.5rem)',
             fontWeight: 400,
             fontStyle: 'italic',
-            color: '#444',
+            color: '#000',
             marginBottom: 28,
             lineHeight: 1.55,
           }}
@@ -137,7 +137,7 @@ export function Hero({ onTryPrototype }: HeroProps): React.ReactElement {
           className="fade-up delay-3"
           style={{
             fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
-            color: '#666',
+            color: '#000',
             maxWidth: 560,
             margin: '0 auto 44px',
             lineHeight: 1.8,
@@ -272,7 +272,7 @@ export function Hero({ onTryPrototype }: HeroProps): React.ReactElement {
             </form>
           )}
 
-          <p style={{ marginTop: 14, fontSize: 12, color: '#AAA' }}>
+          <p style={{ marginTop: 14, fontSize: 12, color: '#000' }}>
             No spam. No sharing. Just updates on what we're building.
           </p>
         </div>

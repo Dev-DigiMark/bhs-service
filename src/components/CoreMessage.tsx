@@ -60,7 +60,7 @@ export function CoreMessage(): React.ReactElement {
              Nuh let people tek yuh fi eddiat!
         </blockquote>
 
-        <p className="reveal" style={{ fontSize: 14, color: '#888', marginBottom: 56 }}>
+        <p className="reveal" style={{ fontSize: 14, color: '#000', marginBottom: 56 }}>
           Don't let people take you for a fool.
         </p>
 
@@ -100,7 +100,7 @@ export function CoreMessage(): React.ReactElement {
               >
                 {heading}
               </p>
-              <p style={{ fontSize: 14, color: '#666', lineHeight: 1.7 }}>{body}</p>
+              <p style={{ fontSize: 14, color: '#000', lineHeight: 1.7 }}>{body}</p>
             </div>
           ))}
         </div>

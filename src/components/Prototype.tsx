@@ -365,7 +365,7 @@ export const Prototype = forwardRef<PrototypeHandle>(function Prototype(_, ref) 
           >
             Try CLEAR
           </h2>
-          <p className="reveal" style={{ color: '#666', maxWidth: 480, margin: '0 auto 32px', fontSize: 15 }}>
+          <p className="reveal" style={{ color: '#000', maxWidth: 480, margin: '0 auto 32px', fontSize: 15 }}>
             CLEAR is an early-stage prototype currently in design. This version exists to explore
             what's useful, what's missing, and how it should develop.
           </p>
@@ -386,7 +386,7 @@ export const Prototype = forwardRef<PrototypeHandle>(function Prototype(_, ref) 
           }}
         >
           <span aria-hidden="true" style={{ fontSize: 16, flexShrink: 0 }}>⚠️</span>
-          <p style={{ fontSize: 13, color: '#555', lineHeight: 1.6 }}>
+          <p style={{ fontSize: 13, color: '#000', lineHeight: 1.6 }}>
             <strong>Important:</strong> CLEAR provides general guidance and self-advocacy support.
             It does <strong>not</strong> replace legal or medical advice. For urgent or complex
             situations, seek qualified professional support. Relevant services are signposted in
@@ -418,7 +418,7 @@ export const Prototype = forwardRef<PrototypeHandle>(function Prototype(_, ref) 
           >
             Give feedback
           </h3>
-          <p style={{ fontSize: 14, color: '#666', marginBottom: 20, lineHeight: 1.6 }}>
+          <p style={{ fontSize: 14, color: '#000', marginBottom: 20, lineHeight: 1.6 }}>
             We are actively seeking feedback from the community. What would you like CLEAR to
             help you with?
           </p>

@@ -27,13 +27,13 @@ export function Problem(): React.ReactElement {
               fontWeight: 700,
               lineHeight: 1.2,
               letterSpacing: '-0.01em',
-              color: '#0A0A0A',
+              color: '#000',
               marginBottom: 20,
             }}
           >
             Too many people leave feeling unheard.
           </h2>
-          <p className="reveal" style={{ fontSize: 16, color: '#666', lineHeight: 1.8 }}>
+          <p className="reveal" style={{ fontSize: 16, color: '#000', lineHeight: 1.8 }}>
             Not because they don't know what's wrong — but because they don't always have the
             language, structure, or confidence to explain it clearly in the moment.
           </p>
@@ -98,7 +98,7 @@ export function Problem(): React.ReactElement {
               >
                 {heading}
               </h3>
-              <p style={{ fontSize: 14, color: '#666', lineHeight: 1.75 }}>{body}</p>
+              <p style={{ fontSize: 14, color: '#000', lineHeight: 1.75 }}>{body}</p>
             </div>
           ))}
         </div>

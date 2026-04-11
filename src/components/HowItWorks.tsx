@@ -32,7 +32,7 @@ export function HowItWorks(): React.ReactElement {
               fontWeight: 600,
               letterSpacing: '0.12em',
               textTransform: 'uppercase',
-              color: '#888',
+              color: '#000',
               marginBottom: 20,
             }}
           >
@@ -124,7 +124,7 @@ export function HowItWorks(): React.ReactElement {
               >
                 {heading}
               </h3>
-              <p style={{ fontSize: 15, color: '#666', lineHeight: 1.75 }}>{body}</p>
+              <p style={{ fontSize: 15, color: '#000', lineHeight: 1.75 }}>{body}</p>
             </div>
           ))}
         </div>
